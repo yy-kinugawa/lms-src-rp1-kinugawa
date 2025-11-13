@@ -88,5 +88,13 @@
 		}
 	</script>
 
+	<!-- 絹川 - Task.25 -->
+	<script th:inline="javascript">
+        window.onload = function () {
+          	if (/*[[${notEnterFlg}]]*/"notEnterFlg") {
+            	alert("過去日の勤怠に未入力があります。");
+          	}
+        };
+    </script>
 </body>
 </html>

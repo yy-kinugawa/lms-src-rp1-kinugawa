@@ -1,6 +1,7 @@
 package jp.co.sss.lms.service;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -333,5 +334,15 @@ public class StudentAttendanceService {
 		// 完了メッセージ
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
+	
+	public boolean notEnterCount(Integer lmsUserId) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String trainingDate =sdf.format(new Date());
+		if(0 < tStudentAttendanceMapper.notEnterCount(lmsUserId, Constants.DB_FLG_FALSE, trainingDate)) {
+			return true;
+		}
+		return false;
+	}
+	
 
 }
