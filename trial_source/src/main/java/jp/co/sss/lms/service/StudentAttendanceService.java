@@ -335,6 +335,13 @@ public class StudentAttendanceService {
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
 	
+	/**
+	 * 勤怠未入力チェック
+	 * 
+	 * @param lmsUserId
+	 * @return boolean 
+	 * @author 絹川 - Task.25
+	 */
 	public boolean notEnterCount(Integer lmsUserId) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String trainingDate =sdf.format(new Date());
