@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -58,7 +57,7 @@ public class TrainingTime implements Comparable<TrainingTime>, Serializable {
 	 * @return boolean
 	 */
 	public boolean isValidTrainingTime(String timeStr) {
-		if (StringUtils.isEmpty(timeStr)) {
+		if (timeStr.isEmpty()) {
 			return true;
 		}
 		Integer hour, minute;
@@ -107,7 +106,7 @@ public class TrainingTime implements Comparable<TrainingTime>, Serializable {
 	 * @param timeStr
 	 */
 	public TrainingTime(String timeStr) {
-		if (StringUtils.isEmpty(timeStr)) {
+		if (timeStr == null | timeStr.isEmpty()) {
 			return;
 		}
 		setTimeStr(timeStr);

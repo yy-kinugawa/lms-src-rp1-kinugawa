@@ -146,5 +146,74 @@ public class AttendanceUtil {
 		}
 		return false;
 	}
+	
+	/**
+	 * 選択用の分マップを取得
+	 * 
+	 * @return 分(選択用)
+	 * @author 絹川 - Task.26
+	 */
+	public LinkedHashMap<Integer, String> setMinuteTimes(){
+		LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
+		map.put(null, "");
+		for(int i = 0; i < 60; i++) {
+			if(i < 10) {
+				map.put(i, "0"+i);
+			} else {
+				map.put(i, Integer.valueOf(i).toString());
+			}
+		}
+		return map;
+	}
+	
+	/**
+	 * 選択用の時間マップを取得
+	 * 
+	 * @return 時(選択用)
+	 * @author 絹川 - Task.26
+	 */
+	public LinkedHashMap<Integer, String> setHourTimes(){
+		LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
+		map.put(null, "");
+		for(int i = 0; i < 24; i++) {
+			if(i < 10) {
+				map.put(i, "0"+i);
+			} else {
+				map.put(i, Integer.valueOf(i).toString());
+			}
+		}
+		return map;
+	}
+	
+	/**
+	 * 時刻の時部分のみ取得
+	 * 
+	 * @param trainingStartOrEndTime 出勤もしくは退勤時刻
+	 * @return 表示用(時)
+	 * @author 絹川 - Task.26
+	 */
+	public String getHourValue(String trainingStartOrEndTime) {
+		if(trainingStartOrEndTime == null | trainingStartOrEndTime.isEmpty()) {
+			return null;
+		}
+		String hourValue = trainingStartOrEndTime.substring(0, 2);
+		
+		return hourValue;
+	}
 
+	/**
+	 * 時刻の分部分のみ取得
+	 * 
+	 * @param trainingStartOrEndTime 出勤もしくは退勤時刻
+	 * @return 表示用(時)
+	 * @author 絹川 - Task.26
+	 */
+	public String getMinuteValue(String trainingStartOrEndTime) {
+		if(trainingStartOrEndTime == null | trainingStartOrEndTime.isEmpty()) {
+			return null;
+		}
+		String minuteValue = trainingStartOrEndTime.substring(3);
+		return minuteValue;
+	}
+	
 }
