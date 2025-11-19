@@ -37,6 +37,7 @@ public class AttendanceForm {
 	/** 中抜け時間(プルダウン) */
 	private LinkedHashMap<Integer, String> blankTimes;
 	/** 日次の勤怠フォームリスト */
+	//@Valid
 	private List<DailyAttendanceForm> attendanceList;
 
 }
