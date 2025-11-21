@@ -374,9 +374,9 @@ public class StudentAttendanceService {
 	/**
 	 * 勤怠未入力チェック
 	 * 
-	 * @param lmsUserId
-	 * @return boolean 
 	 * @author 絹川 - Task.25
+	 * @param lmsUserId
+	 * @return boolean 未入力の有無
 	 */
 	public boolean notEnterCount(Integer lmsUserId) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

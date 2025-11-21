@@ -150,8 +150,8 @@ public class AttendanceUtil {
 	/**
 	 * 選択用の分マップを取得
 	 * 
-	 * @return 分(選択用)
 	 * @author 絹川 - Task.26
+	 * @return 分(選択用)
 	 */
 	public LinkedHashMap<Integer, String> setMinuteTimes(){
 		LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
@@ -169,8 +169,8 @@ public class AttendanceUtil {
 	/**
 	 * 選択用の時間マップを取得
 	 * 
-	 * @return 時(選択用)
 	 * @author 絹川 - Task.26
+	 * @return 時(選択用)
 	 */
 	public LinkedHashMap<Integer, String> setHourTimes(){
 		LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
@@ -188,9 +188,9 @@ public class AttendanceUtil {
 	/**
 	 * 時刻の時部分のみ取得
 	 * 
+	 * @author 絹川 - Task.26
 	 * @param trainingStartOrEndTime 出勤もしくは退勤時刻
 	 * @return 表示用(時)
-	 * @author 絹川 - Task.26
 	 */
 	public String getHourValue(String trainingStartOrEndTime) {
 		if(trainingStartOrEndTime == null | trainingStartOrEndTime.isEmpty()) {
@@ -204,9 +204,9 @@ public class AttendanceUtil {
 	/**
 	 * 時刻の分部分のみ取得
 	 * 
+	 * @author 絹川 - Task.26
 	 * @param trainingStartOrEndTime 出勤もしくは退勤時刻
 	 * @return 表示用(時)
-	 * @author 絹川 - Task.26
 	 */
 	public String getMinuteValue(String trainingStartOrEndTime) {
 		if(trainingStartOrEndTime == null | trainingStartOrEndTime.isEmpty()) {

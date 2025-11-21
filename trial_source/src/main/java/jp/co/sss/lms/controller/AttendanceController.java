@@ -167,9 +167,9 @@ public class AttendanceController {
 	/**
 	 * 勤怠更新時バリデーション
 	 * 
+	 * @author 絹川 - Task.27
 	 * @param attendanceForm
 	 * @param result
-	 * @author 絹川 - Task.27
 	 */
 	private void setUpdateErrors(AttendanceForm attendanceForm, BindingResult result) {
 		
