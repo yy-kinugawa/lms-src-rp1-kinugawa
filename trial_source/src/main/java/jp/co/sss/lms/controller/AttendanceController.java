@@ -224,7 +224,7 @@ public class AttendanceController {
 				
 				//勤務時間＜中抜け時間エラー
 				if(!(form.getBlankTime() == null) && ((endHour*60 + endMinute) - (startHour*60 + startMinute)) < form.getBlankTime()) {
-					result.rejectValue("attendanceList[" + i + "].blankTimeValue", Constants.VALID_KEY_ATTENDANCE_BLANKTIMEERROR, 
+					result.rejectValue("attendanceList[" + i + "].blankTime", Constants.VALID_KEY_ATTENDANCE_BLANKTIMEERROR, 
 							"不正な入力です。");
 				}
 			}	

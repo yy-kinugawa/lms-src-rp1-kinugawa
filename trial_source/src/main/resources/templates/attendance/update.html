@@ -34,9 +34,9 @@
 			<div th:if="${#fields.hasErrors('attendanceList[' + stat.index + '].trainingEndTimeMinuteValue')}" 
 				class="error" th:errors="*{attendanceList[__${stat.index}__].trainingEndTimeMinuteValue}">
 			</div><br th:if="${#fields.hasErrors('attendanceList[' + stat.index + '].trainingEndTimeMinuteValue')}">
-			<div th:if="${#fields.hasErrors('attendanceList[' + stat.index + '].blankTimeValue')}" 
+			<div th:if="${#fields.hasErrors('attendanceList[' + stat.index + '].blankTime')}" 
 				class="error" th:errors="*{attendanceList[__${stat.index}__].blankTime}">
-			</div><br th:if="${#fields.hasErrors('attendanceList[' + stat.index + '].blankTimeValue')}">
+			</div><br th:if="${#fields.hasErrors('attendanceList[' + stat.index + '].blankTime')}">
 			<div th:if="${#fields.hasErrors('attendanceList[' + stat.index + '].note')}" 
 				class="error" th:errors="*{attendanceList[__${stat.index}__].note}">
 			</div><br th:if="${#fields.hasErrors('attendanceList[' + stat.index + '].note')}">
@@ -108,8 +108,8 @@
 									</select>
 								</td>
 								<td class="w80">
-									<select th:name="|attendanceList[${stat.index}].blankTimeValue|" class="form-control" 
-										th:classappend="${#fields.hasErrors('attendanceForm.attendanceList[' + stat.index + '].blankTimeValue')} ? 'errorInput'">
+									<select th:name="|attendanceList[${stat.index}].blankTime|" class="form-control" 
+										th:classappend="${#fields.hasErrors('attendanceForm.attendanceList[' + stat.index + '].blankTime')} ? 'errorInput'">
 										<option th:each="blankTime : ${attendanceForm.blankTimes}" th:value="${blankTime.key}" th:inline="text" class="form-control" 
 											th:selected="${blankTime.key == dailyAttendanceForm.blankTime}">[[${blankTime.value}]]</option>
 									</select>
@@ -117,7 +117,7 @@
 								<td class="w70">[[${dailyAttendanceForm.statusDispName}]]</td>
 								<td class="w140">
 									<input type="text" th:name="|attendanceList[${stat.index}].note|" th:value="${dailyAttendanceForm.note}" class="form-control" 
-										th:classappend="${#fields.hasErrors('attendanceForm.attendanceList[' + stat.index + '].trainingEndTimeHourValue')} ? 'errorInput'"></input>
+										th:classappend="${#fields.hasErrors('attendanceForm.attendanceList[' + stat.index + '].note')} ? 'errorInput'"></input>
 								</td>
 							</tr>
 						</th:block>
