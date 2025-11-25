@@ -53,10 +53,10 @@
 						<tr>
 							<th class="w140">日付</th>
 							<th class="w140">コース内容</th>
-							<th class="w60"></th>
+							<th class="w100"></th>
 							<th class="w180" colspan="3">出勤</th>
-							<th class="w180" colspan="3">退勤</th>
-							<th class="w80">中抜け時間</th>
+							<th class="w160" colspan="3">退勤</th>
+							<th class="w70">中抜け時間</th>
 							<th class="w70">ステータス</th>
 							<th class="w140">備考</th>
 						</tr>
@@ -75,10 +75,13 @@
 								<td class="w140">[[${dailyAttendanceForm.dispTrainingDate}]]</td>
 								<td class="w200">[[${dailyAttendanceForm.sectionName}]]</td>
 								
+								<!-- 絹川 - Task.28 -->
+								<td class="w60"><input type="button" class="btn btn-success" value="定時" th:onclick="selectedFixedTime([[${stat.index}]])" /></td>
+								
 								<!-- 絹川 - Task.26 -->
 								<!-- 絹川 - Task.27 -->
 								<td class="w70">
-									<select th:name="|attendanceList[${stat.index}].trainingStartTimeHourValue|" class="form-control" 
+									<select th:name="|attendanceList[${stat.index}].trainingStartTimeHourValue|" class="form-control" th:id="|start_time_hour_${stat.index}|"
 										th:classappend="${#fields.hasErrors('attendanceForm.attendanceList[' + stat.index + '].trainingStartTimeHourValue')} ? 'errorInput'">
 										<option th:each="hourTime : ${attendanceForm.hourTimes}" th:value="${hourTime.value}" th:inline="text" class="form-control" 
 											th:selected="${hourTime.value == dailyAttendanceForm.trainingStartTimeHourValue}">[[${hourTime.value}]]</option>
@@ -86,14 +89,14 @@
 								</td>
 								<td>:</td>
 								<td  class="w70">
-									<select th:name="|attendanceList[${stat.index}].trainingStartTimeMinuteValue|" class="form-control" 
+									<select th:name="|attendanceList[${stat.index}].trainingStartTimeMinuteValue|" class="form-control" th:id="|start_time_minute_${stat.index}|" 
 										th:classappend="${#fields.hasErrors('attendanceForm.attendanceList[' + stat.index + '].trainingStartTimeMinuteValue')} ? 'errorInput'">
 										<option th:each="minuteTime : ${attendanceForm.minuteTimes}" th:value="${minuteTime.value}" th:inline="text" class="form-control" 
 											th:selected="${minuteTime.value == dailyAttendanceForm.trainingStartTimeMinuteValue}">[[${minuteTime.value}]]</option>
 									</select>
 								</td>
 								<td class="w70">
-									<select th:name="|attendanceList[${stat.index}].trainingEndTimeHourValue|" class="form-control" 
+									<select th:name="|attendanceList[${stat.index}].trainingEndTimeHourValue|" class="form-control" th:id="|end_time_hour_${stat.index}|" 
 										th:classappend="${#fields.hasErrors('attendanceForm.attendanceList[' + stat.index + '].trainingEndTimeHourValue')} ? 'errorInput'">
 										<option th:each="hourTime : ${attendanceForm.hourTimes}" th:value="${hourTime.value}" th:inline="text" class="form-control" 
 											th:selected="${hourTime.value == dailyAttendanceForm.trainingEndTimeHourValue}">[[${hourTime.value}]]</option>
@@ -101,7 +104,7 @@
 								</td>
 								<td>:</td>
 								<td  class="w70">
-									<select th:name="|attendanceList[${stat.index}].trainingEndTimeMinuteValue|" class="form-control" 
+									<select th:name="|attendanceList[${stat.index}].trainingEndTimeMinuteValue|" class="form-control" th:id="|end_time_minute_${stat.index}|" 
 										th:classappend="${#fields.hasErrors('attendanceForm.attendanceList[' + stat.index + '].trainingEndTimeMinuteValue')} ? 'errorInput'">
 										<option th:each="minuteTime : ${attendanceForm.minuteTimes}" th:value="${minuteTime.value}" th:inline="text" class="form-control" 
 											th:selected="${minuteTime.value == dailyAttendanceForm.trainingEndTimeMinuteValue}">[[${minuteTime.value}]]</option>
@@ -148,6 +151,17 @@
           return false;
         }
       }
-    </script>	
+    </script>
+    
+    <!-- 絹川 -Task.28 -->
+    <script>
+      function selectedFixedTime(index) {
+        document.getElementById('start_time_hour_' + index).options[10].selected = true;
+        document.getElementById('start_time_minute_' + index).options[1].selected = true;
+        document.getElementById('end_time_hour_' + index).options[19].selected = true;
+        document.getElementById('end_time_minute_' + index).options[1].selected = true;
+      }
+    </script>
+    	
 </body>
 </html>
