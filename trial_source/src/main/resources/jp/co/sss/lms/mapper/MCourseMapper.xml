@@ -41,5 +41,11 @@
 		WHERE course_id = #{courseId}
 			AND delete_flg = 0
 	</select>
+	
+	<select id="getCourseDtoList" resultType="jp.co.sss.lms.dto.CourseDto">
+		SELECT * FROM m_course 
+		WHERE delete_flg = #{deleteFlg} 
+			AND hidden_flg = #{hiddenFlg}
+	</select>
 
 </mapper>
