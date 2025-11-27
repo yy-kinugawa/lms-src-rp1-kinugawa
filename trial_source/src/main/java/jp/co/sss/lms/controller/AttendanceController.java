@@ -1,6 +1,7 @@
 package jp.co.sss.lms.controller;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jp.co.sss.lms.dto.AttendanceManagementDto;
 import jp.co.sss.lms.dto.LoginUserDto;
+import jp.co.sss.lms.dto.UserDetailDto;
 import jp.co.sss.lms.form.AttendanceForm;
+import jp.co.sss.lms.form.AttendanceListForm;
 import jp.co.sss.lms.form.DailyAttendanceForm;
 import jp.co.sss.lms.service.StudentAttendanceService;
 import jp.co.sss.lms.util.AttendanceUtil;
@@ -162,6 +166,31 @@ public class AttendanceController {
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
 
 		return "attendance/detail";
+	}
+	
+	/**
+	 * 勤怠情報確認画面 初期表示 『検索』ボタン押下
+	 * 
+	 * @author 絹川 - Task.57
+	 * @param attendanceListForm
+	 * @param model
+	 * @return 勤怠情報確認画面
+	 */
+	@RequestMapping("/list")
+	public String list(AttendanceListForm attendanceListForm, Model model, HttpServletRequest request) {
+		List<UserDetailDto> userDetailDtoList = null;
+		
+		if(!(request.getParameter("search") == null)) {
+			List<Integer> placeIdList = new ArrayList<>();
+			placeIdList.add(loginUserDto.getPlaceId());
+			attendanceListForm.setPlaceIdList(placeIdList);
+			userDetailDtoList = studentAttendanceService.getUserDetailForSearch(attendanceListForm);		
+		}
+		
+		model.addAttribute("userDetailDtoList", userDetailDtoList);
+		model.addAttribute("attendanceListForm", studentAttendanceService.setAttendanceListForm(attendanceListForm));
+		
+		return "attendance/list";
 	}
 
 	/**

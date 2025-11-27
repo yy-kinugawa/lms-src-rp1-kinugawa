@@ -11,11 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.co.sss.lms.dto.AttendanceManagementDto;
+import jp.co.sss.lms.dto.CompanyDto;
+import jp.co.sss.lms.dto.CourseDto;
 import jp.co.sss.lms.dto.LoginUserDto;
+import jp.co.sss.lms.dto.UserDetailDto;
 import jp.co.sss.lms.entity.TStudentAttendance;
 import jp.co.sss.lms.enums.AttendanceStatusEnum;
 import jp.co.sss.lms.form.AttendanceForm;
+import jp.co.sss.lms.form.AttendanceListForm;
 import jp.co.sss.lms.form.DailyAttendanceForm;
+import jp.co.sss.lms.mapper.MCompanyMapper;
+import jp.co.sss.lms.mapper.MCourseMapper;
+import jp.co.sss.lms.mapper.MLmsUserMapper;
 import jp.co.sss.lms.mapper.TStudentAttendanceMapper;
 import jp.co.sss.lms.util.AttendanceUtil;
 import jp.co.sss.lms.util.Constants;
@@ -44,6 +51,13 @@ public class StudentAttendanceService {
 	private LoginUserDto loginUserDto;
 	@Autowired
 	private TStudentAttendanceMapper tStudentAttendanceMapper;
+	// 絹川 - Task.57
+	@Autowired
+	private MCourseMapper mCourseMapper;
+	@Autowired
+	private MCompanyMapper mCompanyMapper;
+	@Autowired
+	private MLmsUserMapper mLmsUserMapper;
 
 	/**
 	 * 勤怠一覧情報取得
@@ -387,5 +401,38 @@ public class StudentAttendanceService {
 		return false;
 	}
 	
-
+	/**
+	 * 勤怠情報確認フォームへ設定
+	 * 
+	 * @author 絹川 - Task.57
+	 * @param lmsUserId
+	 * @return 勤怠情報確認フォーム
+	 */
+	
+	public AttendanceListForm setAttendanceListForm(AttendanceListForm attendanceListForm) {
+		// コース名リスト(表示用)を設定
+		List<String> courseNameList = new ArrayList<>();
+		for(CourseDto cd : mCourseMapper.getCourseDtoList(Constants.PUBLISHED_FLG_FALSE, Constants.DB_FLG_FALSE)) {
+			courseNameList.add(cd.getCourseName());
+		}
+		attendanceListForm.setCourseNameList(courseNameList);
+		// 企業名リスト(表示用)を設定
+		List<String> companyNameList = new ArrayList<>();
+		for(CompanyDto cd : mCompanyMapper.getCompanyDto(Constants.DB_FLG_FALSE)) {
+			companyNameList.add(cd.getCompanyName());
+		}
+		attendanceListForm.setCompanyNameList(companyNameList);		
+		// 会場名リスト(表示用)を設定
+		//※非活性、(初期値として「ユーザーが担当する会場(備考)」を設定)
+		attendanceListForm.setPlaceName(mLmsUserMapper.getUserDetail(loginUserDto.getLmsUserId(),
+			Constants.DB_FLG_FALSE).getPlaceNote());
+		
+		return attendanceListForm;
+	}
+	
+	public List<UserDetailDto> getUserDetailForSearch(AttendanceListForm attendanceListForm){
+		Date closeTime = null;
+		return mLmsUserMapper.getUserDetailForSearch(Constants.CODE_VAL_ROLL_STUDENT, closeTime,
+				Constants.DB_FLG_FALSE, attendanceListForm);
+	}
 }

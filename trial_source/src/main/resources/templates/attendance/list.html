@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	th:replace="~{/common/layout :: layout(~{::title},~{::body/content()})}">
+<head>
+<meta charset="UTF-8">
+<title>勤怠情報確認｜LMS</title>
+</head>
+<body>
+	<!-- 絹川 - Task.57 -->
+	<div id="wrap">
+		<div class="container">
+			<div id="contents" class="clearfix">
+				<div id="main" class="main2clm">
+					
+					<h2>勤怠情報確認<small>（受講生一覧）</small></h2>
+					
+					<div class="well bs-component">
+						<form name="attendance_listActionForm" method="post" th:action="@{/attendance/list}"
+             				class="form-horizontal">
+             				<fieldset> 
+								 <legend>検索</legend>
+								 
+								 	<div class="form-group">
+										<label for="courseName" class="col-lg-2 control-label">コース名</label>
+										<div class="col-lg-10">
+											<select  name="courseName" id="courseName" class="form-control"list="courselist">
+												<option th:value="''"></option>
+												<option th:each="courseName : ${attendanceListForm.courseNameList}" th:value="${courseName}">
+													[[${courseName}]]
+												</option>								
+											</select> 
+										</div>
+								 	</div>
+								 
+								 	<div class="form-group">
+										<label for="placeId" class="col-lg-2 control-label">会場名</label>
+								 		<div class="col-lg-10">
+											<input type="text" name="placeName" id="placeName" th:value="${attendanceListForm.placeName}" class="form-control" readonly />									 
+										</div>
+								 	</div>
+								 
+								 	<div class="form-group">
+										<label for="companyName" class="col-lg-2 control-label">企業名</label>
+								 		<div class="col-lg-10">
+											<select  name="companyName" id="companyName" class="form-control"list="companylist">
+												<option th:value="''"></option>
+												<option th:each="companyName : ${attendanceListForm.companyNameList}" th:value="${companyName}">
+													[[${companyName}]]
+												</option>								
+											</select>										 
+										</div>
+								 	</div>
+								 
+								 	<div class="form-group">
+                  						<label for="userName" class="col-lg-2 control-label">ユーザー名</label>
+                  						<div class="col-lg-10">
+                    						<input type="text" name="userName" id="userName" class="form-control" />
+                  						</div>
+                					</div>
+                				
+                					<div class="form-group">
+                  						<div class="col-lg-10 col-lg-offset-2">
+                    						<input type="submit" name="search" value="検索" class="btn btn-primary" />
+                  						</div>
+                					</div>
+							 </fieldset>
+             			</form>
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-12">
+							<table class="table table-hover sortabletable dataTable no-footer" id="DataTables_Table_0" role="grid"
+                  				aria-describedby="DataTables_Table_0_info">
+                  				<thead>
+									<tr role="row">
+                      					<th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                        					aria-sort="ascending" aria-label="ユーザーID: activate to sort column descending">ユーザーID</th>
+                      					<th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                        					aria-label="ユーザー名: activate to sort column ascending">ユーザー名</th>
+                      					<th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                       		 				aria-label="コース名: activate to sort column ascending">コース名</th>
+                      					<th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                        					aria-label="企業名: activate to sort column ascending">企業名</th>
+                      					<th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                        					aria-label="会場: activate to sort column ascending">会場</th>
+                      					<th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                        					aria-label="勤怠: activate to sort column ascending">勤怠</th>										
+									</tr>	  
+								</thead>
+								<tbody>
+									<tr th:if="${userDetailDtoList != null}" th:each="userDetailDto : ${userDetailDtoList}" role="row" class="odd">
+										<td class="sorting_1" th:text="${userDetailDto.userId}"></td>
+                      					<td th:text="${userDetailDto.userName}"></td>
+                      					<td th:text="${userDetailDto.courseName}"></td>
+                      					<td th:text="${userDetailDto.companyName}"></td>
+                      					<td th:text="${userDetailDto.placeName}"></td>
+                      					<td>
+                        					<form name="attendance_updateActionForm" method="post" th:action="@{/attendance/detail}">
+                          						<input type="hidden" name="lmsUserId" th:value="${userDetailDto.lmsUserId}" />
+                          						<input type="hidden" name="courseId" th:value="${userDetailDto.courseId}" />
+                          						<input type="submit" value="勤怠確認" class="btn btn-default" />
+                        					</form>
+                      					</td>
+									</tr>
+								</tbody>
+                  			</table>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-5">
+              			</div>
+              			<div class="col-sm-7">
+                			<div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                			</div>
+              			</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
